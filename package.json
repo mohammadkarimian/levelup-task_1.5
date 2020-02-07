@@ -1,0 +1,28 @@
+{
+  "scripts": {
+    "test:jest": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "pretest": "npm run lint:css && npm run lint && tsc --noEmit",
+    "test": "npm run test:jest --",
+    "lint": "eslint . --cache --fix",
+    "lint:css": "stylelint '**/*.css'"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "stylelint": "^13.0.0",
+    "stylelint-config-standard": "^19.0.0",
+    "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": ">=6.9"
+  },
+  "dependencies": {
+    "@types/node": "^13.7.0",
+    "pg": "^7.18.1",
+    "pg-hstore": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.22"
+  }
+}
