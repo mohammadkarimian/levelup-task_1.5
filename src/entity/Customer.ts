@@ -4,14 +4,50 @@ import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 export class Customer {
     
     @PrimaryGeneratedColumn()
-    id: number
+    private id: number
 
     @Column({length: 32})
-    username: string
+    private username: string
 
     @Column("date")
-    createdAt: Date
+    private createdAt: Date
 
     @Column("date")
-    updatedAt: Date
+    private updatedAt: Date
+
+    getId(): number {
+        return this.id
+    }
+
+    setId(id: number): Customer {
+        this.id = id
+        return this
+    }
+
+    getUsername(): string {
+        return this.username
+    }
+
+    setUsername(username: string): Customer {
+        this.username = username
+        return this
+    }
+
+    getCreatedAt(): Date {
+        return this.createdAt
+    }
+
+    setCreatedAt(createdAt: Date): Customer {
+        this.createdAt = createdAt
+        return this
+    }
+
+    getUpdatedAt(): Date {
+        return this.updatedAt
+    }
+
+    setUpdatedAt(updatedAt: Date): Customer {
+        this.updatedAt = updatedAt
+        return this
+    }
 }
