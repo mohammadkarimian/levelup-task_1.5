@@ -9,7 +9,7 @@ export class User {
     @Column({ type: "text", length: 32 })
     private username: string
 
-    @Column({type: "date"})
+    @Column({ type: "date" })
     private createdAt: Date
 
     @Column({ type: "date", default: null })

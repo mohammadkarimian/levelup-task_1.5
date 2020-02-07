@@ -6,13 +6,13 @@ export class Customer {
     @PrimaryGeneratedColumn()
     private id: number
 
-    @Column({ length: 32 })
+    @Column({ type: "text", length: 32 })
     private username: string
 
-    @Column("date")
+    @Column({ type: "date" })
     private createdAt: Date
 
-    @Column("date")
+    @Column({ type: "date", default: null })
     private updatedAt: Date
 
     getId(): number {

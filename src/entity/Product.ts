@@ -7,12 +7,18 @@ export class Product {
     @PrimaryGeneratedColumn()
     private id: number
 
-    @Column({type: "string",length: 32})
+    @Column({ type: "text", length: 32 })
     private name: string
 
     @OneToOne(type => Customer)
     @JoinColumn()
     private customer: Customer
+
+    @Column({ type: "date" })
+    private createdAt: Date
+
+    @Column({ type: "date", default: null })
+    private updatedAt: Date
 
     getId(): number {
         return this.id
@@ -38,6 +44,24 @@ export class Product {
 
     setCustomer(customer: Customer): Product {
         this.customer = customer
+        return this
+    }
+
+    getCreatedAt(): Date {
+        return this.createdAt
+    }
+
+    setCreatedAt(createdAt: Date): Product {
+        this.createdAt = createdAt
+        return this
+    }
+
+    getUpdatedAt(): Date {
+        return this.updatedAt;
+    }
+
+    setUpdatedAt(updatedAt: Date): Product {
+        this.updatedAt = updatedAt
         return this
     }
 }

@@ -14,6 +14,12 @@ export class Source {
     })
     private type: SourceType
 
+    @Column({ type: "date" })
+    private createdAt: Date
+
+    @Column({ type: "date", default: null })
+    private updatedAt: Date
+
     getId(): number {
         return this.id
     }
@@ -29,6 +35,24 @@ export class Source {
 
     setType(type: SourceType): Source {
         this.type = type
+        return this
+    }
+
+    getCreatedAt(): Date {
+        return this.createdAt
+    }
+
+    setCreatedAt(createdAt: Date): Source {
+        this.createdAt = createdAt
+        return this
+    }
+
+    getUpdatedAt(): Date {
+        return this.updatedAt;
+    }
+
+    setUpdatedAt(updatedAt: Date): Source {
+        this.updatedAt = updatedAt
         return this
     }
 }

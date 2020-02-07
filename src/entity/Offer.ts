@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from "typeorm";
 import { Product } from "./Product";
 import { Source } from "./Source";
+import { User } from "./User";
 
 @Entity()
 export class Offer {
@@ -19,12 +20,16 @@ export class Offer {
     @JoinColumn()
     private source: Source
 
-    @Column("date")
+    @OneToOne(type => User)
+    @JoinColumn()
+    private user: User
+
+    @Column({ type: "date" })
     private createdAt: Date
 
     @Column({ type: "date", default: null })
     private updatedAt: Date
-
+    
 
     getId(): number {
         return this.id
@@ -59,6 +64,15 @@ export class Offer {
 
     setSource(source: Source): Offer {
         this.source = source
+        return this
+    }
+
+    getUser(): User {
+        return this.user
+    }
+
+    setUser(user: User): Offer {
+        this.user = user
         return this
     }
 
