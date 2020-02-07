@@ -6,10 +6,10 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: levelup
+      POSTGRES_DB: levelup-test
     ports:
       - 5432:5432
-
+      
   adminer:
     image: adminer
     restart: always

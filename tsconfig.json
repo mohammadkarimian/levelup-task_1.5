@@ -8,6 +8,8 @@
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "noUnusedLocals": true,
+    "noUnusedParameters": false,
+
     "pretty": true,
     "lib": [
       "esnext"

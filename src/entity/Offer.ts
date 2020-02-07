@@ -1,15 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column, BeforeInsert, BeforeUpdate } from "typeorm";
 import { Product } from "./Product";
 import { Source } from "./Source";
 import { User } from "./User";
 
-@Entity()
+@Entity({ name: "offers" })
 export class Offer {
 
     @PrimaryGeneratedColumn()
     private id: number
 
-    @Column({ type: "number", default: null })
+    @Column({ type: "integer", default: null })
     private order: number
 
     @OneToOne(type => Product)
@@ -24,12 +24,21 @@ export class Offer {
     @JoinColumn()
     private user: User
 
-    @Column({ type: "date" })
+    @Column()
     private createdAt: Date
 
-    @Column({ type: "date", default: null })
+    @Column({ default: null })
     private updatedAt: Date
-    
+
+    @BeforeInsert()
+    beforeInsert() {
+        this.updatedAt = this.createdAt = new Date
+    }
+
+    @BeforeUpdate()
+    beforeUpdate() {
+        this.updatedAt = new Date
+    }
 
     getId(): number {
         return this.id
@@ -80,17 +89,7 @@ export class Offer {
         return this.createdAt
     }
 
-    setCreatedAt(createdAt: Date): Offer {
-        this.createdAt = createdAt
-        return this
-    }
-
     getUpdatedAt(): Date {
         return this.updatedAt;
-    }
-
-    setUpdatedAt(updatedAt: Date): Offer {
-        this.updatedAt = updatedAt
-        return this
     }
 }

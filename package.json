@@ -3,22 +3,43 @@
     "test:jest": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "pretest": "npm run lint:css && npm run lint && tsc --noEmit",
-    "test": "npm run test:jest --",
-    "lint": "eslint . --cache --fix",
-    "lint:css": "stylelint '**/*.css'"
+    "pretest": "npm run lint && tsc --noEmit",
+    "test": "NODE_ENV=test && npm run test:jest --",
+    "lint": "eslint . --cache --fix --ext .ts,.tsx"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
     "stylelint": "^13.0.0",
     "stylelint-config-standard": "^19.0.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "ts-jest": "^25.1.0"
   },
   "engines": {
     "node": ">=6.9"
   },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/lib/",
+      "/dist/"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
+  },
   "dependencies": {
+    "@types/jest": "^25.1.2",
     "@types/node": "^13.7.0",
     "pg": "^7.18.1",
     "pg-hstore": "^2.3.3",

@@ -1,19 +1,29 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate } from "typeorm";
 
-@Entity()
+@Entity({ name: "users" })
 export class User {
 
     @PrimaryGeneratedColumn()
     private id: number
 
-    @Column({ type: "text", length: 32 })
+    @Column({ type: "varchar", length: 32 })
     private username: string
 
-    @Column({ type: "date" })
+    @Column()
     private createdAt: Date
 
-    @Column({ type: "date", default: null })
+    @Column({default: null })
     private updatedAt: Date
+
+    @BeforeInsert()
+    beforeInsert() {
+        this.updatedAt = this.createdAt = new Date
+    }
+
+    @BeforeUpdate()
+    beforeUpdate() {
+        this.updatedAt = new Date
+    }
 
     getId(): number {
         return this.id
@@ -36,18 +46,8 @@ export class User {
     getCreatedAt(): Date {
         return this.createdAt
     }
-
-    setCreatedAt(createdAt: Date): User {
-        this.createdAt = createdAt
-        return this
-    }
-
+    
     getUpdatedAt(): Date {
         return this.updatedAt
-    }
-
-    setUpdatedAt(updatedAt: Date): User {
-        this.updatedAt = updatedAt
-        return this
     }
 }

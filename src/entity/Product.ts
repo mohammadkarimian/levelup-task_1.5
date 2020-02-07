@@ -1,24 +1,34 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BeforeInsert, BeforeUpdate } from "typeorm";
 import { Customer } from "./Customer";
 
-@Entity()
+@Entity({ name: "products" })
 export class Product {
 
     @PrimaryGeneratedColumn()
     private id: number
 
-    @Column({ type: "text", length: 32 })
+    @Column({ type: "varchar", length: 32 })
     private name: string
 
     @OneToOne(type => Customer)
     @JoinColumn()
     private customer: Customer
 
-    @Column({ type: "date" })
+    @Column()
     private createdAt: Date
 
-    @Column({ type: "date", default: null })
+    @Column({ default: null })
     private updatedAt: Date
+
+    @BeforeInsert()
+    beforeInsert() {
+        this.updatedAt = this.createdAt = new Date
+    }
+
+    @BeforeUpdate()
+    beforeUpdate() {
+        this.updatedAt = new Date
+    }
 
     getId(): number {
         return this.id
@@ -51,17 +61,7 @@ export class Product {
         return this.createdAt
     }
 
-    setCreatedAt(createdAt: Date): Product {
-        this.createdAt = createdAt
-        return this
-    }
-
     getUpdatedAt(): Date {
         return this.updatedAt;
-    }
-
-    setUpdatedAt(updatedAt: Date): Product {
-        this.updatedAt = updatedAt
-        return this
     }
 }

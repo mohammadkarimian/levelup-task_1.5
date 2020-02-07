@@ -1,24 +1,34 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, BeforeInsert, BeforeUpdate } from "typeorm";
 import { SourceType } from "./enums/SourceType";
 
-@Entity()
+@Entity({ name: "sources" })
 export class Source {
 
     @PrimaryColumn()
     private id: number
 
     @Column({
-        type: "string",
+        type: "varchar",
         enum: SourceType,
         default: SourceType.FREE
     })
     private type: SourceType
 
-    @Column({ type: "date" })
+    @Column()
     private createdAt: Date
 
-    @Column({ type: "date", default: null })
+    @Column({ default: null })
     private updatedAt: Date
+
+    @BeforeInsert()
+    beforeInsert() {
+        this.updatedAt = this.createdAt = new Date
+    }
+
+    @BeforeUpdate()
+    beforeUpdate() {
+        this.updatedAt = new Date
+    }
 
     getId(): number {
         return this.id
@@ -42,18 +52,8 @@ export class Source {
         return this.createdAt
     }
 
-    setCreatedAt(createdAt: Date): Source {
-        this.createdAt = createdAt
-        return this
-    }
-
     getUpdatedAt(): Date {
         return this.updatedAt;
-    }
-
-    setUpdatedAt(updatedAt: Date): Source {
-        this.updatedAt = updatedAt
-        return this
     }
 }
 
