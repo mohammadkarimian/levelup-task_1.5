@@ -1,10 +1,8 @@
-# level-up_task_1.5
-
-...
+# levelup-task_1.5
 
 ## Change log
 
-The change log can be found on the [Releases page](https://github.com/mohammadkarimian/level-up_task_1.5/releases).
+The change log can be found on the [Releases page](https://github.com/mohammadkarimian/levelup-task_1.5/releases).
 
 ## Contributing
 
@@ -12,6 +10,6 @@ Everyone is welcome to contribute. Please take a moment to review the [contribut
 
 ## Authors and license
 
-[mohammadkarimian](level-up_task_1.5) and [contributors](https://github.com/mohammadkarimian/level-up_task_1.5/graphs/contributors).
+[mohammadkarimian](levelup-task_1.5) and [contributors](https://github.com/mohammadkarimian/levelup-task_1.5/graphs/contributors).
 
 MIT License, see the included [License.md](License.md) file.
