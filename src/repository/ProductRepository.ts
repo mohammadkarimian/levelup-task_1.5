@@ -7,4 +7,12 @@ export class ProductRepository {
     constructor(connection: Connection) {
         this.repository = connection.getRepository(Product)
     }
+
+    async save(product: Product): Promise<Product> {
+        return await this.repository.save(product)
+    }
+
+    async findById(id: number): Promise<Product | undefined>{
+        return await this.repository.findOne(id)
+    }
 }
