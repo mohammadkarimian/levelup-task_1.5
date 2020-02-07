@@ -1,12 +1,12 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Customer {
-    
+
     @PrimaryGeneratedColumn()
     private id: number
 
-    @Column({length: 32})
+    @Column({ length: 32 })
     private username: string
 
     @Column("date")
