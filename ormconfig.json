@@ -27,9 +27,7 @@
       "username": "admin",
       "password": "123456",
       "database": "levelup-test",
-      "synchronize": true,
       "logging": false,
-      "dropSchema" : true,
       "entities": [
          "src/entity/**/*.ts"
       ],

@@ -12,6 +12,10 @@ export class CustomerRepository {
         return await this.repository.save(customer)
     }
 
+    async saveAll(customers: Customer[]) {
+        await this.repository.insert(customers)
+    }
+
     async findById(id: number): Promise<Customer | undefined>{
         return await this.repository.findOne(id)
     }

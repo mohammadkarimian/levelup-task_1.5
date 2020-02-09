@@ -12,6 +12,10 @@ export class UserRepository {
         return await this.repository.save(user)
     }
 
+    async saveAll(users: User[]) {
+        await this.repository.insert(users)
+    }
+
     async findById(id: number): Promise<User | undefined>{
         return await this.repository.findOne(id)
     }

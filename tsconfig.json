@@ -9,7 +9,9 @@
     "strictPropertyInitialization": false,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "declaration": true,
     "pretty": true,
     "lib": [
       "esnext"

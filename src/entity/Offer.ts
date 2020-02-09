@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column, BeforeInsert, BeforeUpdate } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, BeforeInsert, BeforeUpdate, ManyToOne } from "typeorm";
 import { Product } from "./Product";
 import { Source } from "./Source";
 import { User } from "./User";
@@ -12,15 +12,15 @@ export class Offer {
     @Column({ type: "integer", default: null })
     private order: number
 
-    @OneToOne(type => Product)
+    @ManyToOne(type => Product)
     @JoinColumn()
     private product: Product
 
-    @OneToOne(type => Source)
+    @ManyToOne(type => Source)
     @JoinColumn()
     private source: Source
 
-    @OneToOne(type => User)
+    @ManyToOne(type => User)
     @JoinColumn()
     private user: User
 

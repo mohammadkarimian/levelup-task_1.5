@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, BeforeInsert, BeforeUpdate } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, BeforeInsert, BeforeUpdate, ManyToOne } from "typeorm";
 import { Customer } from "./Customer";
 
 @Entity({ name: "products" })
@@ -10,7 +10,7 @@ export class Product {
     @Column({ type: "varchar", length: 32 })
     private name: string
 
-    @OneToOne(type => Customer)
+    @ManyToOne(type => Customer)
     @JoinColumn()
     private customer: Customer
 

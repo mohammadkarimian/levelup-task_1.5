@@ -17,7 +17,7 @@ describe('Test User Repository', () => {
         await connection.close()
     })
 
-    it('saves a user', async () => {
+    xit('saves a user', async () => {
         const user = new User()
             .setUsername("mohammad")
 

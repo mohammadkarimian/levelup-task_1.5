@@ -12,6 +12,10 @@ export class OfferRepository {
         return await this.repository.save(offer)
     }
 
+    async saveAll(offers: Offer[]) {
+        await this.repository.insert(offers)
+    }
+
     async findById(id: number): Promise<Offer | undefined>{
         return await this.repository.findOne(id)
     }

@@ -12,6 +12,10 @@ export class SourceRepository {
         return await this.repository.save(source)
     }
 
+    async saveAll(sources: Source[]) {
+        await this.repository.insert(sources)
+    }
+
     async findById(id: number): Promise<Source | undefined>{
         return await this.repository.findOne(id)
     }
