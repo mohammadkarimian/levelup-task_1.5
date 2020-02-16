@@ -1,5 +1,6 @@
 import { Product } from "../entity/Product"
 import { Repository, Connection } from "typeorm"
+import { ReadStream } from "typeorm/platform/PlatformTools"
 
 export class ProductRepository {
     private repository: Repository<Product>
@@ -18,5 +19,12 @@ export class ProductRepository {
 
     async findById(id: number): Promise<Product | undefined>{
         return await this.repository.findOne(id)
+    }
+
+    async getProductStreamByCustomer(customerId: number): Promise<ReadStream> {
+        return await this.repository
+            .createQueryBuilder("product")
+            .where("\"customerId\" = :id", {id: customerId})
+			.stream();
     }
 }

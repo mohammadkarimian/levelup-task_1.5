@@ -57,8 +57,18 @@ export class Product {
         return this
     }
 
+    setCreatedAt(createdAt: Date): Product {
+        this.createdAt = createdAt
+        return this
+    }
+
     getCreatedAt(): Date {
         return this.createdAt
+    }
+
+    setUpdatedAt(updatedAt: Date): Product {
+        this.updatedAt = updatedAt
+        return this
     }
 
     getUpdatedAt(): Date {

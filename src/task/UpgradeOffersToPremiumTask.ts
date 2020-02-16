@@ -1,16 +1,21 @@
-import { ProductRepository } from "../repository/ProductRepository";
-import { OfferRepository } from "../repository/OfferRepository";
-import { SourceRepository } from "../repository/SourceRepository";
-import { CustomerRepository } from "../repository/CustomerRepository";
-
+import through = require("through");
+import { CustomerStreamService } from "../services/CustomerStreamService";
+import { ProductStreamService } from "../services/ProductStreamService";
 export class UpgradeOffersToPremiumTask {
-    constructor(
-        readonly productRepository: ProductRepository,
-        readonly offerRepository: OfferRepository,
-        readonly sourceRepository: SourceRepository,
-        readonly customerRepository: CustomerRepository
-    ) { }
+	constructor(
+		readonly customerStreamService: CustomerStreamService,
+		readonly productStreamService: ProductStreamService
+	) { }
 
-    async upgrade() {
-    }
+	async run() {
+		const customerStream = await this.customerStreamService.getCustomerStream()
+		return await new Promise(resolve => {
+			customerStream.pipe(through(async customer => {
+				const productStream = await this.productStreamService.getProductStream(customer.getId())
+				productStream.pipe(through(async product => {
+					console.log(product)
+				}))
+			})).on('end', resolve)
+		});
+	}
 }

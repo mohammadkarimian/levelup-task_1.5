@@ -1,5 +1,6 @@
 import { Source } from "../entity/Source"
-import { Repository, Connection } from "typeorm"
+import { Repository, Connection, In } from "typeorm"
+import { SourceType } from "../entity/enums/SourceType"
 
 export class SourceRepository {
     private repository: Repository<Source>
@@ -16,7 +17,15 @@ export class SourceRepository {
         await this.repository.insert(sources)
     }
 
-    async findById(id: number): Promise<Source | undefined>{
+    async findById(id: number): Promise<Source | undefined> {
         return await this.repository.findOne(id)
+    }
+
+    async findByTypes(types: SourceType[]): Promise<Source[] | undefined> {
+        return await this.repository.find({
+            where: {
+                tyep: In(types)
+            }
+        })
     }
 }

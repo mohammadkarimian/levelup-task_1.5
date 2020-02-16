@@ -11,6 +11,10 @@ import { User } from "../../src/entity/User";
 import { Customer } from "../../src/entity/Customer";
 import { Product } from "../../src/entity/Product";
 import { Offer } from "../../src/entity/Offer";
+import { CustomerStreamService } from "../../src/services/CustomerStreamService";
+import { CustomerStreamMapper } from "../../src/mapper/CustomerStreamMapper";
+import { ProductStreamService } from "../../src/services/ProductStreamService";
+import { ProductStreamMapper } from "../../src/mapper/ProductStreamMapper";
 
 describe("Test Upgrade Offers to Premium Version", () => {
     let task: UpgradeOffersToPremiumTask;
@@ -67,18 +71,22 @@ describe("Test Upgrade Offers to Premium Version", () => {
         ]);
 
         task = new UpgradeOffersToPremiumTask(
-            productRepository,
-            offerRepository,
-            sourceRepository,
-            customerRepository
+            new CustomerStreamService(
+                customerRepository,
+                new CustomerStreamMapper()
+            ),
+            new ProductStreamService(
+                productRepository,
+                new ProductStreamMapper()
+            )
         );
     });
 
     afterAll(async () => {
         await connection.close();
     });
-    
+
     it("upgrades offers", async () => {
-        await task.upgrade();
+        await task.run();
     });
 });

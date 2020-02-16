@@ -43,8 +43,18 @@ export class Customer {
         return this
     }
 
+    setCreatedAt(createdAt: Date): Customer {
+        this.createdAt = createdAt;
+        return this
+    }
+
     getCreatedAt(): Date {
         return this.createdAt
+    }
+
+    setUpdatedAt(updatedAt: Date): Customer {
+        this.updatedAt = updatedAt
+        return this
     }
 
     getUpdatedAt(): Date {
