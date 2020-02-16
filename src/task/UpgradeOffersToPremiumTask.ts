@@ -1,10 +1,12 @@
 import through = require("through");
 import { CustomerStreamService } from "../services/CustomerStreamService";
 import { ProductStreamService } from "../services/ProductStreamService";
+import { OfferStreamService } from "../services/OfferStreamService";
 export class UpgradeOffersToPremiumTask {
 	constructor(
 		readonly customerStreamService: CustomerStreamService,
-		readonly productStreamService: ProductStreamService
+		readonly productStreamService: ProductStreamService,
+		readonly offerStreamService: OfferStreamService
 	) { }
 
 	async run() {
@@ -13,7 +15,10 @@ export class UpgradeOffersToPremiumTask {
 			customerStream.pipe(through(async customer => {
 				const productStream = await this.productStreamService.getProductStream(customer.getId())
 				productStream.pipe(through(async product => {
-					console.log(product)
+					const offerStream = await this.offerStreamService.getOfferStream(product.getId())
+					offerStream.pipe(through(async offer => {
+						console.log(offer)
+					}))
 				}))
 			})).on('end', resolve)
 		});

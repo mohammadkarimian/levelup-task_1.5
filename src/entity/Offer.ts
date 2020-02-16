@@ -85,8 +85,18 @@ export class Offer {
         return this
     }
 
+    setCreatedAt(createdAt: Date): Offer{
+        this.createdAt = createdAt
+        return this
+    }
+
     getCreatedAt(): Date {
         return this.createdAt
+    }
+
+    setUpdatedAt(updatedAt: Date): Offer {
+        this.updatedAt = updatedAt
+        return this
     }
 
     getUpdatedAt(): Date {

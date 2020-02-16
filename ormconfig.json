@@ -27,7 +27,7 @@
       "username": "admin",
       "password": "123456",
       "database": "levelup-test",
-      "logging": false,
+      "logging": true,
       "entities": [
          "src/entity/**/*.ts"
       ],

@@ -15,26 +15,33 @@ import { CustomerStreamService } from "../../src/services/CustomerStreamService"
 import { CustomerStreamMapper } from "../../src/mapper/CustomerStreamMapper";
 import { ProductStreamService } from "../../src/services/ProductStreamService";
 import { ProductStreamMapper } from "../../src/mapper/ProductStreamMapper";
+import { OfferStreamService } from "../../src/services/OfferStreamService";
+import { OfferStreamMapper } from "../../src/mapper/OfferStreamMapper";
 
 describe("Test Upgrade Offers to Premium Version", () => {
     let task: UpgradeOffersToPremiumTask;
-    let connection: Connection;
+    let connection: Connection[] = [];
 
     beforeAll(async () => {
         const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
 
-        connection = await createConnection({
+        connection[0] = await createConnection({
             ...connectionOptions,
-            name: "default"
+            name: "default0"
         });
 
-        await connection.synchronize(true);
+        connection[1] = await createConnection({
+            ...connectionOptions,
+            name: "default1"
+        });
 
-        const productRepository = new ProductRepository(connection);
-        const offerRepository = new OfferRepository(connection);
-        const sourceRepository = new SourceRepository(connection);
-        const customerRepository = new CustomerRepository(connection);
-        const userRepository = new UserRepository(connection);
+        await connection[0].synchronize(true);
+
+        const productRepository = new ProductRepository(connection[0]);
+        const offerRepository = new OfferRepository(connection[1]);
+        const sourceRepository = new SourceRepository(connection[0]);
+        const customerRepository = new CustomerRepository(connection[0]);
+        const userRepository = new UserRepository(connection[0]);
 
         const freeSource = await sourceRepository.save(
             new Source().setId(1).setType(SourceType.FREE)
@@ -78,12 +85,17 @@ describe("Test Upgrade Offers to Premium Version", () => {
             new ProductStreamService(
                 productRepository,
                 new ProductStreamMapper()
+            ),
+            new OfferStreamService(
+                offerRepository,
+                new OfferStreamMapper()
             )
         );
     });
 
     afterAll(async () => {
-        await connection.close();
+        await connection[0].close();
+        await connection[1].close();
     });
 
     it("upgrades offers", async () => {
