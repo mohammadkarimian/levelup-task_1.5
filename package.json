@@ -56,6 +56,6 @@
     "reflect-metadata": "^0.1.13",
     "through": "^2.3.8",
     "through2": "^3.0.1",
-    "typeorm": "^0.2.22"
+    "typeorm": "^0.2.25"
   }
 }
